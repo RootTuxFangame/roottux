@@ -25,6 +25,7 @@ class Coin extends FlxSprite
     {
         alive = false;
         solid = false;
+        this.get_body().active = false;
         trace("Tux collects the coin!");
     }
 }
