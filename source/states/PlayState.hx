@@ -1,5 +1,10 @@
 package states;
 
+// anatolystev - adds the coin
+
+import objects.Coin;
+import flixel.FlxSprite;
+import echo.Body;
 import echo.data.Options.WorldOptions;
 import echo.World;
 import creatures.player.Tux;
@@ -22,6 +27,7 @@ class PlayState extends FlxState
 
 	public var tux(default, null):Tux;
 	public var solidThings:FlxGroup;
+	public var entities:FlxGroup;
 
 	public var checkpoint:FlxPoint;
 
@@ -32,11 +38,12 @@ class PlayState extends FlxState
 
 		FlxG.mouse.visible = false;
 
-		// Allows for a very high level width / height (3124)
+		// Allows for a very high level width / height (3124 tiles)
 		FlxEcho.init({width: 99999, height: 99999, gravity_y: 1000});
 
 		// Add things part 2
 		solidThings = new FlxGroup();
+		entities = new FlxGroup();
 		tux = new Tux();
 
 		LevelLoader.loadLevel(this, Global.currentLevel);
@@ -46,6 +53,7 @@ class PlayState extends FlxState
 
 		// Add things part 3
 		add(solidThings);
+		add(entities);
 		add(tux);
 
 		// Camera
@@ -79,6 +87,23 @@ class PlayState extends FlxState
 
 		// Tux collision
 		FlxEcho.listen(solidThings, tux);
+		FlxEcho.listen(entities, tux, {separate: false, enter: (bodyA:Body, bodyB:Body, _) -> {
+			var spriteA:FlxSprite = cast bodyA.object;
+			var spriteB:FlxSprite = cast bodyB.object;
+
+			var entity = (spriteA == tux) ? spriteB : spriteA;
+
+			collideEntities(entity);
+		}});
+	}
+
+	// AnatolyStev
+	function collideEntities(entity:FlxSprite) 
+	{
+		if (Std.isOfType(entity, Coin))
+		{
+			cast(entity, Coin).collect();
+		}
 	}
 
 	override public function update(elapsed:Float)

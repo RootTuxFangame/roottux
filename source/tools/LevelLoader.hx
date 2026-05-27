@@ -1,11 +1,11 @@
 package tools;
 
+import objects.Coin;
 import flixel.FlxState;
 import flixel.addons.display.FlxBackdrop;
 import flixel.addons.editors.tiled.TiledImageLayer;
 import flixel.addons.editors.tiled.TiledMap;
 import flixel.addons.editors.tiled.TiledObject;
-import flixel.addons.editors.tiled.TiledObjectLayer;
 import flixel.addons.editors.tiled.TiledObjectLayer;
 import flixel.addons.editors.tiled.TiledTileLayer;
 import flixel.math.FlxPoint;
@@ -90,6 +90,16 @@ class LevelLoader extends FlxState
         {
             var solidSquare = new LevelSolid(solid.x, solid.y, solid.width, solid.height); // Need this because width and height.
             solidSquare.add_to_group(state.solidThings);
+        }
+
+        for (object in getLevelObjects(tiledMap, "Objects"))
+        {
+            switch (object.type)
+            {
+                case "coin":
+                    var coin:Coin = new Coin(object.x, object.y - 32);
+                    coin.add_to_group(state.entities);
+            }
         }
     }
 
