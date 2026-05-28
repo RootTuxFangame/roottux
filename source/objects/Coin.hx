@@ -9,7 +9,6 @@ using echo.FlxEcho;
 
 class Coin extends FlxSprite
 {
-    var speedFromBlock = -128;
     var coinImage = FlxAtlasFrames.fromSparrow("assets/images/objects/coin.png", "assets/images/objects/coin.xml");
 
     public function new(x:Float, y:Float)
@@ -27,6 +26,7 @@ class Coin extends FlxSprite
     {
         this.get_body().x = this.x + width * 0.5;
         this.get_body().y = this.y + height * 0.5;
+        super.update(elapsed);
     }
 
     public function collect()
