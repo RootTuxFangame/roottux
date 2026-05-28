@@ -1,7 +1,6 @@
 package creatures.player;
 
 // AnatolyStev: Adds Echo-Flixel stuff here and everywhere else it's needed for now (solid and playstate)
-// also helps with adding skidding
 
 import flixel.FlxG;
 import flixel.FlxSprite;
@@ -21,16 +20,12 @@ enum TuxStates
 class Tux extends FlxSprite
 {
     // Movement
-    var tuxAcceleration:Int = 2925; // not exactly a random number, but kind of is
-    var deceleration:Int = 800;
+    var tuxAcceleration:Int = 2600;
+    var deceleration:Int = 1000;
     public var minJumpHeight:Int = 512;
     public var maxJumpHeight:Int = 576;
     var speed:Int = 320;
     var decelerateOnJumpRelease:Float = 0; // Set this to a higher number to make it more similar to Milestone 2.
-
-    // Skidding
-    var skid:Bool = false;
-    var skidCooldown:Float = 0.0;
     
     // Health
     var canTakeDamage:Bool = true;
@@ -117,23 +112,17 @@ class Tux extends FlxSprite
     {
         var body = FlxEcho.get_body(this);
 
-        // These don't need to be changed for now.
-        if (skid && animation.name != "skid")
-        {
-            animation.play("skid");
-        }
-
-        if (body.velocity.x == 0 && isTouching(FLOOR) && !skid)
+        if (body.velocity.x == 0 && isTouching(FLOOR))
         {
             animation.play("stand");
         }
 
-        if (body.velocity.x != 0 && isTouching(FLOOR) && !isTouching(WALL) && !skid)
+        if (body.velocity.x != 0 && isTouching(FLOOR))
         {
             animation.play("walk");
         }
 
-        if (body.velocity.y != 0 && !isTouching(FLOOR) && !skid)
+        if (body.velocity.y != 0 && !isTouching(FLOOR))
         {
             animation.play("jump");
         }
@@ -143,9 +132,6 @@ class Tux extends FlxSprite
     {
         var body = FlxEcho.get_body(this);
 
-        // adding skidding is so fun! /j
-        var wasSkidding = skid;
-
         // Speed is 0 at beginning (so Tux isn't like Sonic)
         body.acceleration.x = 0;
 
@@ -154,16 +140,10 @@ class Tux extends FlxSprite
         {
             if (body.velocity.x > 0)
             {
-                body.velocity.x *= 0.99;
-
-                if (body.velocity.x > 220 && isTouching(FLOOR) && !isTouching(WALL))
-                {
-                    skid = true;
-                    skidCooldown = 0.2;
-                }
+                body.velocity.x *= 0.97;
             }
 
-            flipX = true; // TODO: Shouldn't this be in the animate function?
+            flipX = true; // TODO: Shouldn't this be in animate function?
             direction = -1;
             body.acceleration.x = -tuxAcceleration;
         }
@@ -171,13 +151,7 @@ class Tux extends FlxSprite
         {
             if (body.velocity.x < 0)
             {
-                body.velocity.x *= 0.99;
-
-                if (body.velocity.x < -220 && isTouching(FLOOR) && !isTouching(WALL))
-                {
-                    skid = true;
-                    skidCooldown = 0.2;
-                }
+                body.velocity.x *= 0.95;
             }
 
             flipX = false;
@@ -187,11 +161,6 @@ class Tux extends FlxSprite
         else
         {
             body.acceleration.x = 0;
-        }
-
-        if (skid && !wasSkidding)
-        {
-            FlxG.sound.play("assets/sounds/skid.wav");
         }
 
         // If player pressing jump keys and is on ground, jump. 
@@ -222,21 +191,6 @@ class Tux extends FlxSprite
         if (body.velocity.y < 0 && FlxG.keys.anyJustReleased([SPACE, W, UP]))
         {
             body.velocity.y -= body.velocity.y;
-        }
-
-        if (Math.abs(body.velocity.x) < 180 || !isTouching(FLOOR))
-        {
-            skid = false;
-        }
-
-        if (skidCooldown > 0)
-        {
-            skidCooldown -= FlxG.elapsed;
-            skid = true;
-        }
-        else
-        {
-            skid = false;
         }
     }
 
@@ -387,8 +341,6 @@ class Tux extends FlxSprite
                 animation.addByPrefix('stand', 'stand', 10, false);
                 animation.addByPrefix('walk', 'walk', 10, true);
                 animation.addByPrefix('jump', 'jump', 10, false);
-                animation.addByPrefix("skid", "skid", 15, false);
-                animation.addByPrefix("kick", "kick", 15, false);
                 animation.play('stand');
 
                 setSize(31, 31);
@@ -403,8 +355,6 @@ class Tux extends FlxSprite
                 animation.addByPrefix('stand', 'stand', 10, false);
                 animation.addByPrefix('walk', 'walk', 10, true);
                 animation.addByPrefix('jump', 'jump', 10, false);
-                animation.addByPrefix("skid", "skid", 15, false);
-                animation.addByPrefix("kick", "kick", 15, false);
                 animation.addByPrefix('duck', 'duck', 10, false);
                 animation.play('stand');
 
@@ -420,8 +370,6 @@ class Tux extends FlxSprite
                 animation.addByPrefix('stand', 'stand', 10, false);
                 animation.addByPrefix('walk', 'walk', 10, true);
                 animation.addByPrefix('jump', 'jump', 10, false);
-                animation.addByPrefix("skid", "skid", 15, false);
-                animation.addByPrefix("kick", "kick", 15, false);
                 animation.addByPrefix('duck', 'duck', 10, false);
                 animation.play('stand');
                 setSize(30, 63);
