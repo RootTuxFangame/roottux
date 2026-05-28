@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.12.1" orientation="orthogonal" renderorder="right-down" width="310" height="15" tilewidth="32" tileheight="32" infinite="0" nextlayerid="9" nextobjectid="31">
+<map version="1.10" tiledversion="1.12.0" orientation="orthogonal" renderorder="right-down" width="310" height="15" tilewidth="32" tileheight="32" infinite="0" nextlayerid="10" nextobjectid="32">
  <properties>
   <property name="Level Creator" value="Marek Moeckel"/>
   <property name="Level Name" value="Welcome To Antarctica"/>
@@ -8,6 +8,7 @@
  <tileset firstgid="1" source="../tilesets/tiles.tsx"/>
  <tileset firstgid="441" source="../tilesets/creatures.tsx"/>
  <tileset firstgid="453" source="../tilesets/worldmap_objects.tsx"/>
+ <tileset firstgid="456" source="../tilesets/objects.tsx"/>
  <imagelayer id="8" name="Background Image" parallaxx="0.5" repeatx="1" repeaty="1">
   <image source="../../images/background/arctis.jpg" width="640" height="480"/>
  </imagelayer>
@@ -33,6 +34,9 @@
  </layer>
  <objectgroup id="6" name="Player">
   <object id="30" gid="441" x="64" y="448" width="32" height="32"/>
+ </objectgroup>
+ <objectgroup id="9" name="Objects">
+  <object id="31" type="coin" gid="456" x="288" y="352" width="32" height="32"/>
  </objectgroup>
  <objectgroup id="7" name="Solid">
   <object id="1" x="0" y="448" width="3104" height="32"/>

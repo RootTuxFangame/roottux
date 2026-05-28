@@ -140,7 +140,7 @@ class Tux extends FlxSprite
         {
             if (body.velocity.x > 0)
             {
-                body.velocity.x *= 0.95;
+                body.velocity.x *= 0.97;
             }
 
             flipX = true; // TODO: Shouldn't this be in animate function?

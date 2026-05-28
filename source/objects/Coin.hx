@@ -1,5 +1,7 @@
 package objects;
 
+import flixel.tweens.FlxTween;
+import flixel.FlxG;
 import flixel.graphics.frames.FlxAtlasFrames;
 import flixel.FlxSprite;
 
@@ -18,14 +20,34 @@ class Coin extends FlxSprite
         animation.addByPrefix("normal", "normal", 12, true);
         animation.play("normal");
 
-        this.add_body({x: this.x, y: this.y, mass: STATIC, shape: {type: CIRCLE, radius: 32}, material: {gravity_scale: 0}});
+        this.add_body({x: this.x + width * 0.5, y: this.y + height * 0.5, mass: STATIC, shape: {type: CIRCLE, radius: 16}, material: {gravity_scale: 0}});
+    }
+
+    override public function update(elapsed:Float)
+    {
+        this.get_body().x = this.x + width * 0.5;
+        this.get_body().y = this.y + height * 0.5;
     }
 
     public function collect()
     {
-        alive = false;
-        solid = false;
         this.get_body().active = false;
-        trace("Tux collects the coin!");
+        Global.coins += 1;
+        FlxG.sound.play("assets/sounds/coin.wav");
+        FlxTween.tween(this, {alpha: 0, y: y -64}, 0.25, {onComplete: finishKill});
+    }
+
+    function finishKill(_)
+    {
+        kill();
+        this.remove_object();
+    }
+
+    public function setFromBlock()
+    {
+        FlxG.sound.play("assets/sounds/coin.wav");
+        solid = false;
+        Global.coins += 1;
+        FlxTween.tween(this, {alpha: 0, y: y -64}, 0.25, {onComplete: finishKill});
     }
 }

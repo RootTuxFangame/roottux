@@ -29,6 +29,8 @@ class PlayState extends FlxState
 	public var solidThings:FlxGroup;
 	public var entities:FlxGroup;
 
+	var hud:HUD;
+
 	public var checkpoint:FlxPoint;
 
 	override public function create()
@@ -45,6 +47,7 @@ class PlayState extends FlxState
 		solidThings = new FlxGroup();
 		entities = new FlxGroup();
 		tux = new Tux();
+		hud = new HUD();
 
 		LevelLoader.loadLevel(this, Global.currentLevel);
 		
@@ -55,6 +58,7 @@ class PlayState extends FlxState
 		add(solidThings);
 		add(entities);
 		add(tux);
+		add(hud);
 
 		// Camera
 		FlxG.camera.follow(tux, PLATFORMER);
@@ -87,7 +91,7 @@ class PlayState extends FlxState
 
 		// Tux collision
 		FlxEcho.listen(solidThings, tux);
-		FlxEcho.listen(entities, tux, {separate: false, enter: (bodyA:Body, bodyB:Body, _) -> {
+		FlxEcho.listen(entities, tux, {separate: false, enter: (bodyA:Body, bodyB:Body, _) -> { // AnatolyStev
 			var spriteA:FlxSprite = cast bodyA.object;
 			var spriteB:FlxSprite = cast bodyB.object;
 
