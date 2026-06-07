@@ -9,4 +9,8 @@ Nolok, which wouldn't be easy...
 
 ## Information
 RootTux is a free and open source SuperTux fangame that has the same (almost) goal as ReTux, which is to be 
-like what our / RootTux Team's vision of what a SuperTux Milestone 2 could've been.
+like what our / RootTux Team's vision of what a SuperTux Milestone 2 could've been. It may contain scrapped
+stuff from SuperTux Milestone 2 that I think has potential.
+
+It may also contain stuff similar to ReTux, like the health system but that's because I like making fanmade
+SuperTux stuff that has health systems for some reason.
