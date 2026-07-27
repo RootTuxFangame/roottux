@@ -1,0 +1,13 @@
+[gd_scene format=3 uid="uid://cp547hf8n121"]
+
+[ext_resource type="Script" uid="uid://ctkv5yaqaodab" path="res://scenes/objects/level/goal.gd" id="1_fbtnl"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qa0bd"]
+size = Vector2(32, 800)
+
+[node name="Goal" type="Area2D" unique_id=303820932]
+script = ExtResource("1_fbtnl")
+
+[node name="Collision" type="CollisionShape2D" parent="." unique_id=2095724903]
+position = Vector2(16, 400)
+shape = SubResource("RectangleShape2D_qa0bd")

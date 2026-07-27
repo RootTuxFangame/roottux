@@ -1,0 +1,132 @@
+[gd_scene format=3 uid="uid://c4vd2sb0pw1fe"]
+
+[ext_resource type="Script" uid="uid://cstrdro1wqhm" path="res://scenes/creatures/tux/tux.gd" id="1_o5ujm"]
+[ext_resource type="SpriteFrames" uid="uid://dkp7ubtfs1npm" path="res://data/images/creatures/tux/big_tux.tres" id="2_2vxlh"]
+[ext_resource type="AudioStream" uid="uid://dst7ob8hu60d2" path="res://data/sounds/jump.wav" id="2_o5ujm"]
+[ext_resource type="AudioStream" uid="uid://d0jdjetfhic7y" path="res://data/sounds/bigjump.wav" id="3_kn8db"]
+[ext_resource type="AudioStream" uid="uid://dsv06h85gae87" path="res://data/sounds/skid.wav" id="4_02man"]
+[ext_resource type="AudioStream" uid="uid://ctj5gfu301brj" path="res://data/sounds/hurt.wav" id="6_kn8db"]
+[ext_resource type="AudioStream" uid="uid://bsy6ly1t13aj0" path="res://data/sounds/excellent.ogg" id="7_x5nxh"]
+[ext_resource type="AudioStream" uid="uid://b7imw3mqw0m5b" path="res://data/sounds/coffee.wav" id="8_2vxlh"]
+[ext_resource type="AudioStream" uid="uid://d3y6sinra84ut" path="res://data/sounds/shoot.wav" id="9_8l6nk"]
+[ext_resource type="AudioStream" uid="uid://gcs00afsqkaf" path="res://data/sounds/herring.wav" id="10_rktuf"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_x5nxh"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_8l6nk"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_x5nxh"]
+size = Vector2(24, 30)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_oyly0"]
+size = Vector2(24, 57)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_24li5"]
+size = Vector2(24, 2)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_kn8db"]
+size = Vector2(24, 1)
+
+[node name="Tux" type="CharacterBody2D" unique_id=1491757210]
+floor_max_angle = 1.3962634
+floor_snap_length = 10.0
+platform_on_leave = 2
+script = ExtResource("1_o5ujm")
+
+[node name="BigImage" type="AnimatedSprite2D" parent="." unique_id=1164523386]
+position = Vector2(-8, -16)
+sprite_frames = ExtResource("2_2vxlh")
+animation = &"jump"
+centered = false
+
+[node name="FireImage" type="AnimatedSprite2D" parent="." unique_id=2144300700]
+visible = false
+position = Vector2(-8, -16)
+sprite_frames = ExtResource("2_2vxlh")
+animation = &"stand"
+centered = false
+
+[node name="SmallStarsImage" type="AnimatedSprite2D" parent="." unique_id=1961080940]
+visible = false
+position = Vector2(-8, -16)
+sprite_frames = SubResource("SpriteFrames_x5nxh")
+centered = false
+
+[node name="BigStarsImage" type="AnimatedSprite2D" parent="." unique_id=2124474804]
+visible = false
+position = Vector2(-8, -16)
+sprite_frames = SubResource("SpriteFrames_8l6nk")
+centered = false
+
+[node name="SmallCollision" type="CollisionShape2D" parent="." unique_id=2007373793]
+visible = false
+position = Vector2(23, 49)
+shape = SubResource("RectangleShape2D_x5nxh")
+
+[node name="BigCollision" type="CollisionShape2D" parent="." unique_id=1015206304]
+position = Vector2(23, 35.5)
+shape = SubResource("RectangleShape2D_oyly0")
+
+[node name="Stomp" type="Area2D" parent="." unique_id=1838696828]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Stomp" unique_id=2088152941]
+position = Vector2(23, 64)
+shape = SubResource("RectangleShape2D_24li5")
+
+[node name="RockDetector" type="Area2D" parent="." unique_id=864929470]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RockDetector" unique_id=1446703195]
+position = Vector2(23, 6.5)
+shape = SubResource("RectangleShape2D_kn8db")
+
+[node name="CeilingRaycast" type="RayCast2D" parent="." unique_id=1649754862]
+position = Vector2(16, 16)
+target_position = Vector2(0, -16)
+
+[node name="Camera" type="Camera2D" parent="." unique_id=909402093]
+limit_left = 0
+limit_bottom = 608
+drag_vertical_enabled = true
+drag_top_margin = 0.25
+drag_bottom_margin = 0.25
+
+[node name="SmallJumpSound" type="AudioStreamPlayer" parent="." unique_id=1971297686]
+stream = ExtResource("2_o5ujm")
+
+[node name="BigJumpSound" type="AudioStreamPlayer" parent="." unique_id=1104155709]
+stream = ExtResource("3_kn8db")
+
+[node name="SkidSound" type="AudioStreamPlayer" parent="." unique_id=1606656586]
+stream = ExtResource("4_02man")
+max_polyphony = 3
+
+[node name="FlipSound" type="AudioStreamPlayer" parent="." unique_id=1776281898]
+stream = ExtResource("2_o5ujm")
+pitch_scale = 1.53
+
+[node name="DeathSound" type="AudioStreamPlayer" parent="." unique_id=241492467]
+stream = ExtResource("6_kn8db")
+
+[node name="GrowSound" type="AudioStreamPlayer" parent="." unique_id=1686269949]
+stream = ExtResource("7_x5nxh")
+
+[node name="FlowerSound" type="AudioStreamPlayer" parent="." unique_id=1674804232]
+stream = ExtResource("8_2vxlh")
+
+[node name="BulletSound" type="AudioStreamPlayer" parent="." unique_id=205885121]
+stream = ExtResource("9_8l6nk")
+
+[node name="InvincibleSound" type="AudioStreamPlayer" parent="." unique_id=619837292]
+stream = ExtResource("10_rktuf")
+
+[node name="CoyoteTimer" type="Timer" parent="." unique_id=581042992]
+wait_time = 0.18
+one_shot = true
+
+[node name="StarTimer" type="Timer" parent="." unique_id=2090027442]
+wait_time = 10.0
+one_shot = true
+
+[node name="TileTimer" type="Timer" parent="." unique_id=1420153271]
+wait_time = 0.05
+one_shot = true

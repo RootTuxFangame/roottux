@@ -1,0 +1,18 @@
+[gd_scene format=3 uid="uid://d0nwoax51b5kk"]
+
+[ext_resource type="SpriteFrames" uid="uid://c0wptypehuuva" path="res://data/images/objects/coin/coin.tres" id="1_72muq"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_nqd5q"]
+radius = 16.0
+
+[node name="Coin" type="Node2D" unique_id=581069116]
+
+[node name="Image" type="AnimatedSprite2D" parent="." unique_id=2130862543]
+sprite_frames = ExtResource("1_72muq")
+centered = false
+
+[node name="Detector" type="Area2D" parent="." unique_id=786603966]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Detector" unique_id=725018573]
+position = Vector2(16, 16)
+shape = SubResource("CircleShape2D_nqd5q")
