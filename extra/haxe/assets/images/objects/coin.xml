@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<TextureAtlas imagePath="coin.png">
-	<!-- Created using the Spritesheet and XML generator -->
-	<!-- https://uncertainprod.github.io/FNF-Spritesheet-XML-generator-Web -->
-	<SubTexture name="normal0000" x="0" y="0" width="36" height="36" frameX="2" frameY="2" frameWidth="32" frameHeight="32"/>
-	<SubTexture name="normal0001" x="36" y="0" width="24" height="36" frameX="-4" frameY="2" frameWidth="32" frameHeight="32"/>
-	<SubTexture name="normal0002" x="60" y="0" width="12" height="36" frameX="-10" frameY="2" frameWidth="32" frameHeight="32"/>
-	<SubTexture name="normal0003" x="36" y="0" width="24" height="36" frameX="-4" frameY="2" frameWidth="32" frameHeight="32"/>
-</TextureAtlas>
